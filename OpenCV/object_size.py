@@ -45,7 +45,7 @@ cnts = cnts[0] if imutils.is_cv2() else cnts[1]
 # sort the contours from left-to-right and initialize the
 # 'pixels per metric' calibration variable
 (cnts, _) = contours.sort_contours(cnts)
-pixelsPerMetric = None
+#pixelsPerMetric = None
 pixelsPerMetric = width / args["width"]
 # loop over the contours individually
 for c in cnts:
@@ -101,8 +101,8 @@ for c in cnts:
   # if the pixels per metric has not been initialized, then
   # compute it as the ratio of pixels to supplied metric
   # (in this case, inches)
-  if pixelsPerMetric is None:
-    pixelsPerMetric = dB / args["width"]
+  #if pixelsPerMetric is None:
+  #  pixelsPerMetric = dB / args["width"]
 
   # compute the size of the object
   dimA = dA / pixelsPerMetric
