@@ -1,7 +1,4 @@
-# USAGE
-# python object_size.py --image images/example_01.png --width 0.955
-# python object_size.py --image images/example_02.png --width 0.955
-# python object_size.py --image images/example_03.png --width 3.5
+# python object_size.py --image images/example_03.png --width 500
 
 # import the necessary packages
 from scipy.spatial import distance as dist
