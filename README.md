@@ -1,2 +1,5 @@
 # ImageAna
-python object_size.py --image TestImage/PsiRNA.jpg --width 500
+```
+export PYTHONPATH=/usr/local/lib/python2.7/site-packages:$PYTHONPATH
+python object_size.py --image TestImage/PsiRNA_ori.jpg --width 500
+```
