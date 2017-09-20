@@ -21,8 +21,14 @@ ap.add_argument("-w", "--width", type=float, required=True,
 args = vars(ap.parse_args())
 
 # load the image, convert it to grayscale, and blur it slightly
-image = cv2.imread(args["image"])
-height, width, channels = image.shape
+img = cv2.imread('TestImage/PsiRNA_ori.jpg')
+height, width, channels = img.shape
+thisedge=691
+ystart=24
+xstart=6
+image = img[ystart:(ystart+thisedge), xstart:(xstart+thisedge)]
+#image = cv2.imread(args["image"])
+#height, width, channels = image.shape
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 gray = cv2.GaussianBlur(gray, (7, 7), 0)
 
@@ -43,7 +49,7 @@ cnts = cnts[0] if imutils.is_cv2() else cnts[1]
 # 'pixels per metric' calibration variable
 (cnts, _) = contours.sort_contours(cnts)
 #pixelsPerMetric = None
-pixelsPerMetric = width / args["width"]
+pixelsPerMetric = thisedge / args["width"]
 # loop over the contours individually
 for c in cnts:
   # if the contour is not sufficiently large, ignore it
