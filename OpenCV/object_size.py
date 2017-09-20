@@ -8,6 +8,7 @@ import numpy as np
 import argparse
 import imutils
 import cv2
+import pandas as pd
 
 def midpoint(ptA, ptB):
   return ((ptA[0] + ptB[0]) * 0.5, (ptA[1] + ptB[1]) * 0.5)
@@ -50,12 +51,17 @@ cnts = cnts[0] if imutils.is_cv2() else cnts[1]
 (cnts, _) = contours.sort_contours(cnts)
 #pixelsPerMetric = None
 pixelsPerMetric = thisedge / args["width"]
+
+list_area=[]
+list_perimeter=[]
 # loop over the contours individually
 for c in cnts:
   # if the contour is not sufficiently large, ignore it
   if cv2.contourArea(c) < 10:
     continue
-
+  #data = data.append(pd.DataFrame({'Area': cv2.contourArea(c), 'Perimeter': cv2.arcLength(c,True)}, index=[0]), ignore_index=True)
+  list_area.append(cv2.contourArea(c))
+  list_perimeter.append(cv2.arcLength(c,True))
   # compute the rotated bounding box of the contour
   orig = image.copy()
   box = cv2.minAreaRect(c)
@@ -118,7 +124,11 @@ for c in cnts:
   cv2.putText(orig, "{:.1f}nm".format(dimB),
     (int(trbrX + 10), int(trbrY)), cv2.FONT_HERSHEY_SIMPLEX,
     0.65, (255, 255, 255), 2)
-
   # show the output image
-  cv2.imshow("Image", orig)
-  cv2.waitKey(0)
+  #cv2.imshow("Image", orig)
+  #cv2.waitKey(0)
+data = pd.DataFrame({'Area': list_area, 'Perimeter': list_perimeter})
+data.index.name = 'Index'
+print(data.head())
+data.to_csv('example.csv')
+
